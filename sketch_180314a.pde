@@ -25,11 +25,12 @@ int menosColor=180;
 int volverAJ=255;
 int preg = 100;
 int stroke=color (0,1), stroke2= color (0,1), stroke3=color(0,1), stroke4=color(0,1), stroke5=color(0,1), stroke6=color(0,1), stroke7=color(0,1);
-
+float gravity=1.5;
+int reiniciar = 180;
 
 void setup(){
 size (800,800);
-  Do = new SoundFile(this, "sonido.aif");
+  Do = new SoundFile(this, "Do.mp3");
   box2d = new Box2DProcessing(this);
   box2d.createWorld();
     box2d.listenForCollisions();
@@ -45,8 +46,6 @@ case 0:
 pantallaUno();
 break;
 case 1:
-pantallaDos();
-box2d.step();
 muro = new Boundary(width/2, 787, width, 26);
 muro2 = new Boundary(13, height/2, 26, height);
 muro3 = new Boundary (width/2, 13, width, 26);
@@ -55,6 +54,10 @@ muro.display();
 muro2.display();
 muro3.display();
 muro4.display();
+
+pantallaDos();
+box2d.step();
+
 break;
 case 2:
 pantallaTres();
@@ -93,6 +96,7 @@ pantalla = 2;
 } 
 if (mouseX > 745 && mouseX < 785 && mouseY > 25 && mouseY < 55){
 preg= color(0,0,255);} else{preg = 100;}
+
 } 
 
 
@@ -145,6 +149,8 @@ popMatrix();
 textSize(30);
 fill(180);
 text("Velocidad", 400, 50);
+fill(reiniciar);
+text("Reiniciar", 100, 50);
 fill(masColor);
 ellipse(510,40,30,30);
 fill(menosColor);
@@ -175,17 +181,28 @@ preg= color(0,0,255);} else{preg = 100;}
    stroke=color(0,255,0);
 } else {stroke = color(0,1);}
 
-for (int i = particula.size()-5; i >= 0; i--) {
+/*for (int i = particula.size()-5; i >= 0; i--) {*/
+int i=particula.size()-5;
 Particula p = particula.get(i);
-p.display();}
-}
+p.display();/*}*/
+
+if (mouseX > 45 && mouseX < 160 && mouseY > 25 && mouseY < 60){
+reiniciar= color(0,0,255);} else{reiniciar = 180;}}
+
+/*if (mousePressed && mouseX > 45 && mouseX < 160 && mouseY > 25 && mouseY < 60){
+killBody(b);}
+}*/
 
 
  void mousePressed (){
    if (mouseX > 55 && mouseX < 95 && mouseY > 600 && mouseY < 640){
     particula.add(new Particula(400, 100, 20));
    }
+   
+   if(mouseX > 495 && mouseX < 525 && mouseY > 25 && mouseY < 55){
+    gravity=gravity+0.2;}
   }
+  
   
   
 void pantallaTres(){
